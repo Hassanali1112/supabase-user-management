@@ -54,7 +54,7 @@ const showData = async () => {
                 <td>${user.address}</td>
                 <td>${user.email_address}</td>
                 <td><i class="fa-solid fa-trash deleteUser" onClick="deleteUser(${user.id})" ></i></td>
-                <td><i class="fa-solid fa-wrench updateUser" onClick="updateUser(${user.id})" ></i></td>
+             
               </tr>
         `)
       );
