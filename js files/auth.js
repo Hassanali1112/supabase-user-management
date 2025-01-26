@@ -1,6 +1,7 @@
 const signup_btn = document.querySelector("#signup_btn");
 const signupEmail = document.querySelector("#signup_email");
 const signupPass = document.querySelector("#signup_password");
+const signupName = document.querySelector("#signup_name");
 
 const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 const passwordRegex =
@@ -8,25 +9,50 @@ const passwordRegex =
 
 if (signup_btn) {
   signup_btn.addEventListener("click", async () => {
+   
     event.preventDefault();
     if (emailRegex.test(signupEmail.value)) {
       if (passwordRegex.test(signupPass.value)) {
+         console.log("click");
         try {
           const { data, error } = await supabase.auth.signUp({
             email: signupEmail.value,
             password: signupPass.value,
           });
           if (error) throw error;
-          signupEmail.value = "";
-          signupPass.value = "";
+          // signupEmail.value = "";
+          // signupPass.value = "";
 
           if (data) {
-            console.log(data);
-            Swal.fire({
-              title: "Email confirmation",
-              text: "Kindly check your email",
-              icon: "success",
-            });
+            console.log(data)
+            try {
+              const { data : userData, error : userError } = await supabase
+                .from("users")
+                .insert({
+                  userId : data.user.id,
+                  email : signupEmail.value,
+                  name : signupName.value,
+                })
+
+                .select();
+                if(userData){
+                  console.log(userData)
+                  signupEmail.value = ""
+                  signupPass.value = ""
+                  signupName.value = ""
+                }
+                if(userError) throw userError;
+
+              
+            } catch (error) {
+              console.log(userError)
+            }
+            // console.log(data);
+            // Swal.fire({
+            //   title: "Email confirmation",
+            //   text: "Kindly check your email",
+            //   icon: "success",
+            // });
           }
         } catch (error) {
           console.log(error);

@@ -5,28 +5,28 @@ const companyName = document.querySelector("#company_Name");
 const companyAddress = document.querySelector("#company_Address");
 const companyEmail = document.querySelector("#company_email");
 
-addNewUseBtn.addEventListener("click", async () => {
-  try {
-    const { error } = await supabase.from("users").insert({
-      first_name: firstName.value,
-      last_name: lastName.value,
-      company_name: companyName.value,
-      address: companyAddress.value,
-      email_address: companyEmail.value,
-    });
+// addNewUseBtn.addEventListener("click", async () => {
+//   try {
+//     const { error } = await supabase.from("users").insert({
+//       first_name: firstName.value,
+//       last_name: lastName.value,
+//       company_name: companyName.value,
+//       address: companyAddress.value,
+//       email_address: companyEmail.value,
+//     });
 
-    if (error) throw error;
-    showData();
-  } catch (error) {
-    console.log(error);
-  }
+//     if (error) throw error;
+//     showData();
+//   } catch (error) {
+//     console.log(error);
+//   }
 
-  firstName.value = "";
-  lastName.value = "";
-  companyName.value = "";
-  companyAddress.value = "";
-  companyEmail.value = "";
-});
+//   firstName.value = "";
+//   lastName.value = "";
+//   companyName.value = "";
+//   companyAddress.value = "";
+//   companyEmail.value = "";
+// });
 
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
