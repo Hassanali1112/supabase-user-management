@@ -22,7 +22,7 @@ const getUserData = async () => {
       data: { user },
     } = await supabase.auth.getUser();
     if(user){
-      console.log(user)
+      // console.log(user)
     }
     try {
       const { data, error } = await supabase
@@ -32,14 +32,14 @@ const getUserData = async () => {
         
         if(error) throw error;
         if(data){
-          console.log("data")
-          console.log(data)
+          // console.log("data")
+          // console.log(data)
           const loggedInUser = {
             name : data[0].name,
             email : data[0].email,
             userId : data[0].userId
           }
-          console.log(loggedInUser)
+          // console.log(loggedInUser)
           localStorage.setItem("activeUser", JSON.stringify(loggedInUser));
         }
 
