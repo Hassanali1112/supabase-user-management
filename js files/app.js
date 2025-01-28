@@ -22,31 +22,32 @@ const getUserData = async () => {
       data: { user },
     } = await supabase.auth.getUser();
     if(user){
-      // console.log(user)
-    }
-    try {
-      const { data, error } = await supabase
-        .from("users")
-        .select("name, email, userId")
-        .eq("userId" , user.id);
-        
-        if(error) throw error;
-        if(data){
-          // console.log("data")
-          // console.log(data)
-          const loggedInUser = {
-            name : data[0].name,
-            email : data[0].email,
-            userId : data[0].userId
-          }
-          // console.log(loggedInUser)
-          localStorage.setItem("activeUser", JSON.stringify(loggedInUser));
-        }
+      console.log(user)
+      try {
 
-      
-    } catch (error) {
-      
+        const { data, error } = await supabase
+          .from("users")
+          .select("name, email, userId")
+          .eq("userId", user.id);
+
+        if (error) throw error;
+        if (data) {
+          // console.log("data")
+          console.log(data)
+          const loggedInUser = {
+            name: data[0].name,
+            email: data[0].email,
+            userId: data[0].userId,
+          };
+          console.log(loggedInUser);
+          localStorage.setItem("activeUser", JSON.stringify(loggedInUser));
+          console.log(JSON.parse(localStorage.getItem("activeUser")));
+        }
+      } catch (error) {
+        console.log(error);
+      }
     }
+    
     
   } catch (error) {
     console.log(error)
